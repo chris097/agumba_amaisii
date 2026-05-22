@@ -17,6 +17,8 @@ export type Member = {
   name: string;
   regNumber: string;
   payments: PaymentStatus;
+  /** Dates each levy was paid (ISO date string, only present when paid) */
+  paymentDates?: Partial<Record<keyof PaymentStatus, string>>;
   /** Meeting levy due month (1-12) */
   levyMonth?: number;
 };
@@ -26,7 +28,7 @@ export const members: Member[] = [
     id: "1",
     name: "Christian Chiemela",
     regNumber: "AG-2023-001",
-    levyMonth: 9, // September
+    levyMonth: 9,
     payments: {
       meetingLevy: false,
       marriageRight: true,
@@ -36,6 +38,14 @@ export const members: Member[] = [
       meetingLevy2023: true,
       burialRight2023: true,
       marriageRight2022: true,
+    },
+    paymentDates: {
+      marriageRight: "2025-03-12",
+      burialRight: "2025-01-20",
+      freeDonation: "2025-04-05",
+      meetingLevy2023: "2023-09-10",
+      burialRight2023: "2023-07-22",
+      marriageRight2022: "2022-11-03",
     },
   },
   {
@@ -52,6 +62,11 @@ export const members: Member[] = [
       burialRight2023: false,
       marriageRight2022: true,
     },
+    paymentDates: {
+      meetingLevy: "2025-06-04",
+      meetingLevy2023: "2023-06-08",
+      marriageRight2022: "2022-11-15",
+    },
   },
   {
     id: "3",
@@ -66,6 +81,12 @@ export const members: Member[] = [
       meetingLevy2023: true,
       burialRight2023: false,
       marriageRight2022: false,
+    },
+    paymentDates: {
+      meetingLevy: "2025-06-11",
+      burialRight: "2025-02-03",
+      freeDonation: "2025-04-19",
+      meetingLevy2023: "2023-06-15",
     },
   },
   {
@@ -82,6 +103,16 @@ export const members: Member[] = [
       burialRight2023: true,
       marriageRight2022: true,
     },
+    paymentDates: {
+      meetingLevy: "2025-06-01",
+      marriageRight: "2025-03-08",
+      burialRight: "2025-01-17",
+      childDedication: "2025-05-22",
+      freeDonation: "2025-04-30",
+      meetingLevy2023: "2023-06-02",
+      burialRight2023: "2023-07-30",
+      marriageRight2022: "2022-11-10",
+    },
   },
   {
     id: "5",
@@ -97,12 +128,18 @@ export const members: Member[] = [
       burialRight2023: true,
       marriageRight2022: false,
     },
+    paymentDates: {
+      marriageRight: "2025-03-25",
+      childDedication: "2025-05-14",
+      meetingLevy2023: "2023-09-07",
+      burialRight2023: "2023-08-01",
+    },
   },
   {
     id: "6",
     name: "Johnbosco Amadi",
     regNumber: "AG-2023-006",
-    levyMonth: 6, // June
+    levyMonth: 6,
     payments: {
       meetingLevy: true,
       marriageRight: false,
@@ -112,6 +149,11 @@ export const members: Member[] = [
       meetingLevy2023: false,
       burialRight2023: true,
       marriageRight2022: true,
+    },
+    paymentDates: {
+      meetingLevy: "2025-06-03",
+      burialRight2023: "2023-08-05",
+      marriageRight2022: "2022-11-18",
     },
   },
   {
@@ -128,6 +170,13 @@ export const members: Member[] = [
       burialRight2023: false,
       marriageRight2022: false,
     },
+    paymentDates: {
+      meetingLevy: "2025-06-09",
+      marriageRight: "2025-03-14",
+      burialRight: "2025-01-28",
+      freeDonation: "2025-05-01",
+      meetingLevy2023: "2023-06-11",
+    },
   },
   {
     id: "8",
@@ -143,12 +192,18 @@ export const members: Member[] = [
       burialRight2023: true,
       marriageRight2022: true,
     },
+    paymentDates: {
+      burialRight: "2025-02-11",
+      childDedication: "2025-05-20",
+      burialRight2023: "2023-08-12",
+      marriageRight2022: "2022-11-22",
+    },
   },
   {
     id: "9",
     name: "Ekwueme Chisom",
     regNumber: "AG-2023-009",
-    levyMonth: 12, // December
+    levyMonth: 12,
     payments: {
       meetingLevy: false,
       marriageRight: true,
@@ -158,6 +213,13 @@ export const members: Member[] = [
       meetingLevy2023: true,
       burialRight2023: false,
       marriageRight2022: true,
+    },
+    paymentDates: {
+      marriageRight: "2025-03-30",
+      childDedication: "2025-05-16",
+      freeDonation: "2025-04-22",
+      meetingLevy2023: "2023-12-05",
+      marriageRight2022: "2022-11-28",
     },
   },
   {
@@ -174,6 +236,9 @@ export const members: Member[] = [
       burialRight2023: false,
       marriageRight2022: false,
     },
+    paymentDates: {
+      meetingLevy: "2025-06-17",
+    },
   },
   {
     id: "11",
@@ -189,6 +254,16 @@ export const members: Member[] = [
       burialRight2023: true,
       marriageRight2022: true,
     },
+    paymentDates: {
+      meetingLevy: "2025-06-02",
+      marriageRight: "2025-03-06",
+      burialRight: "2025-01-15",
+      childDedication: "2025-05-10",
+      freeDonation: "2025-04-28",
+      meetingLevy2023: "2023-06-04",
+      burialRight2023: "2023-07-18",
+      marriageRight2022: "2022-11-08",
+    },
   },
 ];
 
@@ -202,8 +277,16 @@ export type ActivityDetail = {
   amount?: string;
   /** Hosts/celebrants for event-type activities */
   hosts?: string[];
-  /** Scheduled levy members with their due month name */
-  levySchedule?: { name: string; month: string; regNumber: string }[];
+  /** Scheduled levy members with their due month */
+  levySchedule?: {
+    name: string;
+    month: string;
+    regNumber: string;
+    /** Whether recipient has been paid out the collected funds */
+    received: boolean;
+    /** Date the recipient received the collected funds */
+    receivedDate?: string;
+  }[];
 };
 
 export const activitiesInfo: Record<string, ActivityDetail> = {
@@ -215,9 +298,25 @@ export const activitiesInfo: Record<string, ActivityDetail> = {
     type: "general",
     amount: "₦3,000",
     levySchedule: [
-      { name: "Johnbosco Amadi",    month: "June",      regNumber: "AG-2023-006" },
-      { name: "Christian Chiemela", month: "September", regNumber: "AG-2023-001" },
-      { name: "Ekwueme Chisom",     month: "December",  regNumber: "AG-2023-009" },
+      {
+        name: "Johnbosco Amadi",
+        month: "June",
+        regNumber: "AG-2023-006",
+        received: true,
+        receivedDate: "2025-06-20",
+      },
+      {
+        name: "Christian Chiemela",
+        month: "September",
+        regNumber: "AG-2023-001",
+        received: false,
+      },
+      {
+        name: "Ekwueme Chisom",
+        month: "December",
+        regNumber: "AG-2023-009",
+        received: false,
+      },
     ],
   },
   "marriage-right": {
