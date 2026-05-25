@@ -21,6 +21,16 @@ export type Member = {
   paymentDates?: Partial<Record<keyof PaymentStatus, string>>;
   /** Meeting levy due month (1-12) */
   levyMonth?: number;
+  
+  // Personal Info
+  age?: number;
+  placeOfBirth?: string;
+  kindred?: string;
+  status?: "Single" | "Married" | "Widowed";
+  spouseName?: string;
+  kidsCount?: number;
+  kidsAges?: string; // e.g., "5, 8, 12"
+  photo?: string;
 };
 
 export const members: Member[] = [
@@ -47,6 +57,14 @@ export const members: Member[] = [
       burialRight2023: "2023-07-22",
       marriageRight2022: "2022-11-03",
     },
+    age: 45,
+    placeOfBirth: "Aba, Abia State",
+    kindred: "Umuokoro",
+    status: "Married",
+    spouseName: "Mrs. Blessing Chiemela",
+    kidsCount: 3,
+    kidsAges: "5, 8, 12",
+    photo: "/christian.png",
   },
   {
     id: "2",
@@ -331,7 +349,7 @@ export const activitiesInfo: Record<string, ActivityDetail> = {
   "burial-right": {
     title: "Burial Right",
     description:
-      "Consolation support of 1 crate of beer + ₦5,000 contributed by each member towards the burial rites of a fellow member.",
+      "Consolation support of 1 crate of beer + ₦5,000 contributed by each member towards the burial rites of a fellow member's parents or siblings.",
     paymentKey: "burialRight",
     type: "event",
     amount: "1 crate of beer + ₦5,000",
@@ -386,7 +404,7 @@ export const previousActivitiesInfo: Record<string, ActivityDetail> = {
 
 export const aboutInfo = {
   history:
-    "The Agumba Age Grade of Amaisii Community was founded on the principles of brotherhood, unity, and communal progress. Formed by a collective of vibrant youths, our organisation has grown into a formidable pillar of support for our community.",
+    "The Agumba Age Grade of Amaisii Community (Alumna Age Grade 1994/1995) was founded on the principles of brotherhood, unity, and communal progress. Formed by a collective of vibrant youths, our organisation has grown into a formidable pillar of support for our community.",
   motto: "Unity, Progress, and Brotherhood",
 };
 

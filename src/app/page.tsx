@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { activitiesInfo, aboutInfo, validRegNumbers } from "@/lib/data";
-import { Shield, ArrowRight, Users, Heart, Coins, Baby, HeartHandshake, Lock, AlertCircle, X, History } from "lucide-react";
+import { Shield, ArrowRight, Users, Heart, Coins, Baby, HeartHandshake, Lock, AlertCircle, X, History, Calendar } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const getIcon = (slug: string) => {
@@ -64,7 +65,17 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50 pb-20">
       {/* Hero Section */}
       <section className="relative pt-32 pb-32 px-4 sm:px-6 lg:px-8 overflow-hidden bg-black-900 text-white animate-fade-in">
-        <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/homepage_banner.png"
+            alt="Homepage Banner"
+            fill
+            className="object-cover opacity-30 object-center"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black-900/30 to-black-900/10" />
+        </div>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
           <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-peach-500/20 blur-3xl" />
           <div className="absolute bottom-0 -left-20 w-80 h-80 rounded-full bg-peach-700/20 blur-3xl" />
         </div>
@@ -126,6 +137,33 @@ export default function Home() {
             </Link>
           </motion.div>
         </div>
+      </section>
+
+      {/* Upcoming Activities Feature */}
+      <section className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="bg-white rounded-3xl p-6 md:p-8 shadow-2xl border border-peach-100 flex flex-col md:flex-row items-center justify-between gap-6 overflow-hidden relative group"
+        >
+          <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 rounded-full bg-peach-50 opacity-50 blur-3xl group-hover:bg-peach-100 transition-colors" />
+          <div className="flex items-center gap-6 relative z-10 w-full md:w-auto">
+            <div className="w-16 h-16 rounded-2xl bg-peach-100 flex flex-col items-center justify-center shrink-0 border border-peach-200">
+              <Calendar className="w-6 h-6 text-peach-600 mb-1" />
+              <span className="text-xs font-bold text-peach-700 uppercase tracking-widest">June</span>
+            </div>
+            <div>
+              <span className="inline-block px-2.5 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full mb-2 uppercase tracking-wide border border-green-100">
+                Upcoming Event
+              </span>
+              <h3 className="text-xl md:text-2xl font-bold text-black-900 mb-1">Johnbosco Meeting</h3>
+              <p className="text-black-100/70 text-sm md:text-base font-medium">
+                Scheduled for June 2026 (Last Sunday of the month)
+              </p>
+            </div>
+          </div>
+        </motion.div>
       </section>
 
       {/* Activities Grid */}
@@ -211,11 +249,10 @@ export default function Home() {
                       value={regNo}
                       onChange={(e) => { setRegNo(e.target.value); setRegError(false); }}
                       placeholder="e.g. AG-2023-001"
-                      className={`w-full px-5 py-4 rounded-xl border text-center font-semibold text-lg outline-none transition-all ${
-                        regError
-                          ? "border-red-300 focus:border-red-500 focus:ring-4 focus:ring-red-500/10"
-                          : "border-gray-200 focus:border-peach-500 focus:ring-4 focus:ring-peach-500/10"
-                      }`}
+                      className={`w-full px-5 py-4 rounded-xl border text-center font-semibold text-lg outline-none transition-all ${regError
+                        ? "border-red-300 focus:border-red-500 focus:ring-4 focus:ring-red-500/10"
+                        : "border-gray-200 focus:border-peach-500 focus:ring-4 focus:ring-peach-500/10"
+                        }`}
                     />
                     {regError && (
                       <motion.p

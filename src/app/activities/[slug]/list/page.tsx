@@ -188,28 +188,48 @@ export default function ContributionListPage() {
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-10">
             {/* General Stats */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-              <div className="bg-white rounded-3xl p-6 shadow-md border border-gray-100/50 flex items-center justify-between group hover:shadow-xl transition-all duration-300">
-                <div>
-                  <p className="text-sm font-medium text-black-100/60 mb-1">Total Paid Members</p>
-                  <p className="text-4xl font-extrabold text-green-600">{paidMembers.length}</p>
+              <div className="bg-white rounded-3xl p-6 shadow-md border border-gray-100/50 flex flex-col group hover:shadow-xl transition-all duration-300">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <p className="text-sm font-medium text-black-100/60 mb-1">Total Paid Members</p>
+                    <p className="text-4xl font-extrabold text-green-600">{paidMembers.length}</p>
+                  </div>
+                  <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center border border-green-100">
+                    <span className="text-green-600 font-extrabold text-lg">
+                      {Math.round((paidMembers.length / members.length) * 100)}%
+                    </span>
+                  </div>
                 </div>
-                <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center border border-green-100">
-                  <span className="text-green-600 font-extrabold text-lg">
-                    {Math.round((paidMembers.length / members.length) * 100)}%
-                  </span>
-                </div>
+                {activity.amount && (
+                  <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                    <span className="text-sm text-gray-500 font-medium">Total Paid Amount:</span>
+                    <span className="text-lg font-bold text-green-600">
+                      {`₦${((activity.amount ? parseInt((activity.amount.match(/₦([\d,]+)/) || ['0', '0'])[1].replace(/,/g, ''), 10) : 0) * paidMembers.length).toLocaleString()}`}
+                    </span>
+                  </div>
+                )}
               </div>
 
-              <div className="bg-white rounded-3xl p-6 shadow-md border border-gray-100/50 flex items-center justify-between group hover:shadow-xl transition-all duration-300">
-                <div>
-                  <p className="text-sm font-medium text-black-100/60 mb-1">Members Yet to Pay</p>
-                  <p className="text-4xl font-extrabold text-red-600">{unpaidMembers.length}</p>
+              <div className="bg-white rounded-3xl p-6 shadow-md border border-gray-100/50 flex flex-col group hover:shadow-xl transition-all duration-300">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <p className="text-sm font-medium text-black-100/60 mb-1">Members Yet to Pay</p>
+                    <p className="text-4xl font-extrabold text-red-600">{unpaidMembers.length}</p>
+                  </div>
+                  <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center border border-red-100">
+                    <span className="text-red-600 font-extrabold text-lg">
+                      {Math.round((unpaidMembers.length / members.length) * 100)}%
+                    </span>
+                  </div>
                 </div>
-                <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center border border-red-100">
-                  <span className="text-red-600 font-extrabold text-lg">
-                    {Math.round((unpaidMembers.length / members.length) * 100)}%
-                  </span>
-                </div>
+                {activity.amount && (
+                  <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                    <span className="text-sm text-gray-500 font-medium">Total Not Paid Amount:</span>
+                    <span className="text-lg font-bold text-red-600">
+                      {`₦${((activity.amount ? parseInt((activity.amount.match(/₦([\d,]+)/) || ['0', '0'])[1].replace(/,/g, ''), 10) : 0) * unpaidMembers.length).toLocaleString()}`}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -227,6 +247,7 @@ export default function ContributionListPage() {
                         <tr className="bg-gray-50/50 border-b border-gray-100">
                           <th className="py-4 px-6 font-bold text-black-900 text-sm">Member Name</th>
                           <th className="py-4 px-6 font-bold text-black-900 text-sm">Reg. Number</th>
+                          {activity.amount && <th className="py-4 px-6 font-bold text-black-900 text-sm">Amount</th>}
                           <th className="py-4 px-6 font-bold text-black-900 text-sm text-center">Status</th>
                         </tr>
                       </thead>
@@ -235,6 +256,9 @@ export default function ContributionListPage() {
                           <tr key={member.id} className="border-b border-gray-50 last:border-0 hover:bg-peach-50/20 transition-colors duration-200">
                             <td className="py-4 px-6 font-semibold text-black-900 text-base">{member.name}</td>
                             <td className="py-4 px-6 text-black-100/70 font-mono text-sm tracking-wide">{member.regNumber}</td>
+                            {activity.amount && (
+                              <td className="py-4 px-6 font-semibold text-black-900 text-sm">{activity.amount}</td>
+                            )}
                             <td className="py-4 px-6 text-center">
                               <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-green-50 text-green-800 border border-green-200">
                                 Paid & Verified

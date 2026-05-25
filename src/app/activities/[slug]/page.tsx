@@ -233,9 +233,9 @@ export default function ActivityPage() {
                     </button>
                     <button
                       onClick={goToList}
-                      className="px-6 py-4 bg-black-900 text-white font-bold rounded-2xl hover:bg-black-100 transition-all duration-300 flex items-center justify-center"
+                      className="px-4 py-3 bg-black-900 text-white font-bold rounded-2xl hover:bg-black-100 transition-all duration-300 flex items-center justify-center"
                     >
-                      <Users className="w-5 h-5 mr-2" />
+                      <Users className="w-4 h-4 mr-2" />
                       View Contribution List
                     </button>
                   </motion.div>
